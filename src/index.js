@@ -81,15 +81,46 @@ await client.query(`
   client.end();
 };
 
+
+
 export const createItems = async () => {
   const client = initConnection();
   client.connect();
 
+  await client.query(`
+    INSERT INTO users (name)
+    VALUES ('Kiril');
+  `);
 
+  await client.query(`
+    INSERT INTO categories (name)
+    VALUES ('Fantasy');
+  `);
 
+  await client.query(`
+    INSERT INTO authors (name)
+    VALUES ('Herbert Wells');
+  `);
+
+  await client.query(`
+    INSERT INTO books (title, authorid, categoryid, userid)
+    VALUES ('The War of the Worlds', 1, 1, 1);
+  `);
+
+  await client.query(`
+    INSERT INTO descriptions (description, bookid)
+    VALUES ('The War of the Worlds presents itself as a factual account of the Martian invasion. It is considered one of the first works to theorise the existence of a race intelligent enough to invade Earth.', 1);
+  `);
+
+  await client.query(`
+    INSERT INTO reviews (message, userid, bookid)
+    VALUES ('The War of the Worlds was generally received very favourably by both readers and critics upon its publication. There was, however, some criticism of the brutal nature of the events in the narrative.', 1, 1);
+  `);
 
   client.end();
 };
+
+
 
 export const dropTables = async () => {
   const client = initConnection();
